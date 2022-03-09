@@ -40,7 +40,7 @@ class PlayersAdapter(val context: Context, private val onClick: (Player) -> Unit
 class PlayerViewHolder(private val binding: ItemPlayerBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(player: Player, onClick: (Player) -> Unit, context: Context) {
-        Glide.with(context).load(player.picture).into(binding.playerRoundedThumbnail)
+        Glide.with(context).load(player.picture).into(binding.playerThumbnail)
         binding.playerFullName.text = player.name.title + " " + player.name.first + " " + player.name.last
         binding.root.setOnClickListener {
             onClick(player)

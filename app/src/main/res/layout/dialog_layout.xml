@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/dialog_textview"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:scaleType="center"
+            android:background="#FFFFBB33"
+            android:contentDescription="@string/app_name"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/dialog_edit_text"
+            android:inputType="text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:scaleType="center"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+<!--            android:hint="@string/set_up_distance_in_meters" -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dialog_positive_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:textSize="10sp"
+                android:text="OK"
+                android:textColor="#ffffffff" />
+
+            <Button
+                android:id="@+id/dialog_negative_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#FFFFFF"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Cancel"
+                android:textSize="10sp"
+                android:textColor="#ffffffff" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,8 @@ package com.androidapp.myfootballcoach
 
 import android.app.Application
 import android.os.StrictMode
-import com.androidapp.myfootballcoach.di.koinModule
+import com.androidapp.myfootballcoach.di.appModule
+import com.androidapp.myfootballcoach.di.networkingKoinModule
 import com.androidapp.myfootballcoach.utils.LineNumberDebugTree
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +20,7 @@ class MyApplication: Application() {
         startKoin {
             androidLogger(Level.NONE)
             androidContext(this@MyApplication)
-            modules(koinModule /*, networkingKoinModule*/)
+            modules(appModule, networkingKoinModule)
         }
         setupTimber()
     }
