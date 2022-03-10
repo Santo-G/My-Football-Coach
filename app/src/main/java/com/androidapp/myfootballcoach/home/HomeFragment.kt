@@ -44,7 +44,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.send(HomeScreenEvents.OnRefreshClicked)
         }*/
 
-       // binding.playersList.adapter = playersAdapter
+        binding.playersList.adapter = playersAdapter
 
         playersAdapter.setPlayersList(playersList)
 

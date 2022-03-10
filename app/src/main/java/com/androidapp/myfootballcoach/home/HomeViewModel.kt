@@ -48,9 +48,7 @@ class HomeViewModel(
                 is LoadPlayersResult.Success -> {
                     val players = playerResult.players.map {
                         Player(
-                            id = it.id,
                             name = it.name,
-                            gender = it.gender,
                             picture = it.picture
                         )
                     }
