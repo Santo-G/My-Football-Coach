@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface PlayerService {
 
-    @GET("seed=empatica&inc=name,picture&gender=male&results=10&noinfo")
+    @GET("?seed=empatica&inc=name,picture&gender=male&results=10&noinfo")
     suspend fun loadPlayers(): PlayerDTO
 }

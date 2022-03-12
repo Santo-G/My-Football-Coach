@@ -23,7 +23,7 @@ class PlayerAPIImpl : PlayerAPI {
             .addInterceptor(logging)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/api/?")
+            .baseUrl("https://randomuser.me/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -56,8 +56,8 @@ class PlayerAPIImpl : PlayerAPI {
 
     private fun Result.toDomain(): Player {
         return Player(
-            name = name.title + " " + name.first + " " + name.last,
-            picture = picture.thumbnail
+            name = name,
+            picture = picture
         )
     }
 }

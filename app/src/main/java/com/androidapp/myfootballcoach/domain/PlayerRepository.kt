@@ -1,5 +1,8 @@
 package com.androidapp.myfootballcoach.domain
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 
 interface PlayerRepository {
     suspend fun loadPlayers(): LoadPlayersResult
@@ -8,9 +11,10 @@ interface PlayerRepository {
 
 class PlayerRepositoryImpl(
     private val api: PlayerAPI,
-): PlayerRepository {
+) : PlayerRepository {
 
     override suspend fun loadPlayers(): LoadPlayersResult {
         return api.loadPlayers()
     }
+
 }
