@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.androidapp.myfootballcoach.detail.DetailFragment"
+        android:name="com.androidapp.myfootballcoach.session.SessionFragment"
         android:label="DetailFragment" >
         <argument
             android:name="player"
