@@ -43,14 +43,13 @@ class HomeViewModel(
     private fun loadContent() {
         states.postValue(HomeScreenStates.Loading)
         viewModelScope.launch {
-            when (val playerResult = repository.loadPlayers()) {
+            val playerResult = repository.loadPlayers()
+            when (playerResult) {
                 is LoadPlayersResult.Failure -> onPlayersFailure(playerResult)
                 is LoadPlayersResult.Success -> {
                     val players = playerResult.players.map {
                         Player(
-                            id = it.id,
                             name = it.name,
-                            gender = it.gender,
                             picture = it.picture
                         )
                     }

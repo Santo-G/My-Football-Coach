@@ -4,6 +4,7 @@ import com.androidapp.myfootballcoach.domain.LoadPlayersError
 import com.androidapp.myfootballcoach.domain.LoadPlayersResult
 import com.androidapp.myfootballcoach.domain.Player
 import com.androidapp.myfootballcoach.domain.PlayerAPI
+import com.androidapp.myfootballcoach.networking.api.Result
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,7 +23,7 @@ class PlayerAPIImpl : PlayerAPI {
             .addInterceptor(logging)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/api/?")
+            .baseUrl("https://randomuser.me/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -33,7 +34,7 @@ class PlayerAPIImpl : PlayerAPI {
         // try-catch for networking error management
         try {
             val playersList = service.loadPlayers()
-            val players = playersList.players.mapNotNull {
+            val players = playersList.results.mapNotNull {
                 it.toDomain()
             }
             return if (players.isEmpty()) {
@@ -52,18 +53,11 @@ class PlayerAPIImpl : PlayerAPI {
             return LoadPlayersResult.Failure(LoadPlayersError.ServerError)
         }
     }
+
+    private fun Result.toDomain(): Player {
+        return Player(
+            name = name,
+            picture = picture
+        )
+    }
 }
-
-private fun PlayerDTOITem.toDomain(): Player {
-    return Player(
-        name = name,
-        id = id,
-        gender = gender,
-        picture = picture
-    )
-}
-
-
-
-
-

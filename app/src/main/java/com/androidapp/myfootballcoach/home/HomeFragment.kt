@@ -16,6 +16,7 @@ import com.androidapp.myfootballcoach.R
 import com.androidapp.myfootballcoach.databinding.FragmentHomeBinding
 import com.androidapp.myfootballcoach.domain.Player
 import com.androidapp.myfootballcoach.utils.bindings.viewBinding
+import com.androidapp.myfootballcoach.utils.exhaustive
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -24,7 +25,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModel()
     private val binding by viewBinding(FragmentHomeBinding::bind)
-    private var playersList: ArrayList<Player> = ArrayList()
+    private var listOfPlayers: ArrayList<Player>? = ArrayList()
+    lateinit var playersAdapter: PlayersAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,45 +38,47 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val playersAdapter = PlayersAdapter(context = requireContext()) { player ->
+        playersAdapter = PlayersAdapter(context = requireContext()) { player ->
             viewModel.send(HomeScreenEvents.OnPlayerClick(player))
         }
 
-/*        binding.swiperefresh.setOnClickListener {
+        binding.swiperefresh.setOnClickListener {
             viewModel.send(HomeScreenEvents.OnRefreshClicked)
-        }*/
+        }
 
-       // binding.playersList.adapter = playersAdapter
 
-        playersAdapter.setPlayersList(playersList)
+        playersAdapter.setPlayersList(listOfPlayers ?: ArrayList())
+        binding.playersList.adapter = playersAdapter
 
-        observeStates(playersAdapter, binding)
+        observeStates(binding)
         observeActions()
     }
 
 
-    private fun observeStates(playersAdapter: PlayersAdapter, fragmentHomeBinding: FragmentHomeBinding) {
+    private fun observeStates(fragmentHomeBinding: FragmentHomeBinding) {
         viewModel.states.observe(viewLifecycleOwner) { state ->
             Timber.d(state.toString())
             when (state) {
-                is HomeScreenStates.Content -> setupContent(fragmentHomeBinding, playersAdapter, state)
-                is Error -> setupError(state as HomeScreenStates.Error, fragmentHomeBinding)
-            }
+                is HomeScreenStates.Content -> setupContent(fragmentHomeBinding, state)
+                is HomeScreenStates.Error -> setupError(fragmentHomeBinding, state)
+                HomeScreenStates.Loading -> fragmentHomeBinding.swiperefresh.isRefreshing = true
+            }.exhaustive
         }
     }
 
     private fun setupContent(
         fragmentHomeBinding: FragmentHomeBinding,
-        playersAdapter: PlayersAdapter,
         state: HomeScreenStates.Content
     ) {
+        fragmentHomeBinding.swiperefresh.isRefreshing = false
         if (state.playersList.isEmpty()) {
             fragmentHomeBinding.innerLayoutNoPlayerFound.root.visibility = View.VISIBLE
         } else {
             fragmentHomeBinding.innerLayoutNoPlayerFound.root.visibility = View.GONE
             state.playersList.map { player ->
-                playersList.add(player)
+                listOfPlayers?.add(player)
             }
+            playersAdapter.notifyDataSetChanged()
             errorVisibilityGone(fragmentHomeBinding)
             fragmentHomeBinding.playersList.visibility = View.VISIBLE
         }
@@ -85,7 +89,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         errorBinding.innerLayoutNoPlayerFound.root.visibility = View.GONE
     }
 
-    private fun setupError(state: HomeScreenStates.Error, fragmentHomeBinding: FragmentHomeBinding) {
+    private fun setupError(fragmentHomeBinding: FragmentHomeBinding, state: HomeScreenStates.Error) {
         when (state.error) {
             ErrorStates.ShowNoPlayerFound -> {
                 fragmentHomeBinding.innerLayoutNoPlayerFound.root.visibility = View.VISIBLE
