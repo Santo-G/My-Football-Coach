@@ -46,22 +46,22 @@
         <TextView
             android:id="@+id/fragment_sessione_num_of_laps_textview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/fragment_sessione_average_time_lap_textview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/fragment_sessione_average_speed_meters_seconds_textview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/fragment_sessione_peak_speed_textview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -91,19 +91,30 @@
                 android:id="@+id/session_plot"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                ap:title="A Simple XY Plot"
+                ap:title=""
                 ap:lineLabels="left|bottom"
-                ap:lineLabelRotationBottom="-80"
+                ap:lineLabelRotationBottom="-50"
                 ap:graphBackgroundColor="#FFFFFF"
-                ap:legendVisible="true"
+                ap:borderColor="#FFFFFF"
+                ap:domainLineColor="#FFFFFF"
+                ap:rangeLineColor="#FFFFFF"
+                ap:gridBackgroundColor="#FFFFFF"
+                ap:domainOriginLineThickness="1dp"
+                ap:rangeOriginLineThickness="1dp"
+                ap:borderThickness="0dp"
+                ap:legendVisible="false"
                 ap:legendHorizontalPosition="600dp"
                 ap:renderMode="use_background_thread"
                 ap:domainTitleHeightMode="fill"
                 ap:domainTitleWidthMode="fill"
                 ap:domainTitleVisible="true"
+                ap:domainTitleVerticalPosition="0dp"
+                ap:domainTitleHorizontalPosition="0dp"
+                ap:rangeTitleVisible="true"
                 ap:graphHeightMode="fill"
                 ap:graphWidthMode="fill"
-                ap:gridBackgroundColor="#FFFFFF" />
+                ap:rangeStep="5"
+                ap:domainStep="8" />
 
         </LinearLayout>
 
