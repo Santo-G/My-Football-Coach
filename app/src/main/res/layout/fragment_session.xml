@@ -1,6 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_session_lap_times_constraint_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        tools:context=".MainActivity"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_player_lap_time_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:spanCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:transitionGroup="true"
+            tools:listitem="@layout/item_player_lap_time"
+            android:scrollbars="vertical"
+            android:backgroundTint="@color/cardview_dark_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_session_aggregated_metrics_constraint_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        tools:context=".MainActivity"
+        app:layout_constraintTop_toTopOf="@id/fragment_session_lap_times_constraint_layout"
+        app:layout_constraintStart_toEndOf="@id/fragment_session_lap_times_constraint_layout"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/fragment_sessione_num_of_laps_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/fragment_sessione_average_time_lap_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/fragment_sessione_average_speed_meters_seconds_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/fragment_sessione_peak_speed_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_session_xyplot_constraint_layout"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@id/fragment_session_aggregated_metrics_constraint_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:ap="http://schemas.android.com/apk/res-auto"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            ap:layout_constraintStart_toStartOf="parent"
+            ap:layout_constraintEnd_toEndOf="parent"
+            ap:layout_constraintTop_toTopOf="parent"
+            ap:layout_constraintBottom_toBottomOf="parent"
+            android:padding="5dp">
+
+            <com.androidplot.xy.XYPlot
+                style="@style/APDefacto.Light"
+                android:id="@+id/session_plot"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                ap:title="A Simple XY Plot"
+                ap:lineLabels="left|bottom"
+                ap:lineLabelRotationBottom="-80"
+                ap:graphBackgroundColor="#FFFFFF"
+                ap:legendVisible="true"
+                ap:legendHorizontalPosition="600dp"
+                ap:renderMode="use_background_thread"
+                ap:domainTitleHeightMode="fill"
+                ap:domainTitleWidthMode="fill"
+                ap:domainTitleVisible="true"
+                ap:graphHeightMode="fill"
+                ap:graphWidthMode="fill"
+                ap:gridBackgroundColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_session_xyplot_constraint_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/session_stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:textSize="10sp"
+            android:text="STOP"
+            android:textColor="#ffffffff"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/session_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:textSize="10sp"
+            android:text="PLAY"
+            android:textColor="#ffffffff"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/session_lap_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:textSize="10sp"
+            android:text="LAP"
+            android:textColor="#ffffffff"
+            android:layout_margin="10dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
