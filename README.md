@@ -1,2 +1,2 @@
 # My-Football-Coach
-Android Kotlin app for tracking football training sessions
+Android Kotlin app for tracking football training sessions (WIP)
